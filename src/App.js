@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Cocktails from './components/Cocktails';
+import NavBar from './components/Navbar';
+import Categories from './components/Categories';
+import Login from './components/Login';
+import Register from './components/Register';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends Component {
+  render() {
+    return (
+      <>
+        <NavBar />
 
-export default App;
+        <div>
+          <Switch>
+            <Route path='/Categories' component={Categories} />
+            <Route path='/Login' component={Login} />
+            <Route path='/Register' component={Register} />
+            <Redirect from='/' exact to='/' />
+            <Redirect to='/not-found' />
+          </Switch>
+          <Cocktails />
+        </div>
+      </>
+    );
+  }
+}
