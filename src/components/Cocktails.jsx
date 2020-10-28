@@ -7,19 +7,21 @@ import config from '../config.json';
 // import ButtonGroup from 'react-bootstrap/ButtonGroup';
 //import getDrinksByCategory from './services/httpService';
 
-const filterCategoryURL = config.drinkByCategoryURl + 'Cocktail';
+function Cocktails({ selected }) {
+  //console.log(endPoint);
 
-function Cocktails() {
   const [drinks, setDrinks] = useState([]);
 
   useEffect(() => {
-    async function getDrinksByCategory() {
+    const filterCategoryURL = config.drinkByCategoryURl + selected;
+
+    async function populateCocktails() {
       const { data } = await axios.get(filterCategoryURL);
 
       setDrinks(data.drinks);
     }
-    getDrinksByCategory();
-  }, []);
+    populateCocktails();
+  }, [selected]);
 
   // TODO
   const handleInfo = () => {
