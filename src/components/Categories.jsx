@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CategoryNavbar from './CategoryNavbar';
-
 import config from '../config.json';
+import CategoryContext from './context/categoryContext';
 
 function Categories() {
   const initialValue =
@@ -22,20 +22,23 @@ function Categories() {
   }, []);
 
   const handleClick = category => {
-    const clickedCategory = categories.filter(c => c === category);
-    const result = clickedCategory.map(c => c.strCategory);
-    const stringResult = result[0];
-    console.log(stringResult);
+    const clickedCategory = categories
+      .filter(c => c === category)
+      .map(c => c.strCategory);
+    const stringResult = clickedCategory[0];
     setSelectedCategory(stringResult);
   };
+
   return (
-    <>
-      <CategoryNavbar
-        categories={categories}
-        endPoint={selectedCategory}
-        onClick={category => handleClick(category)}
-      />
-    </>
+    <CategoryContext.Provider value={selectedCategory}>
+      <div>
+        <CategoryNavbar
+          categories={categories}
+          value={selectedCategory}
+          onClick={category => handleClick(category)}
+        />
+      </div>
+    </CategoryContext.Provider>
   );
 }
 

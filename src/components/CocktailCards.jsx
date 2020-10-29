@@ -2,11 +2,11 @@ import React from 'react';
 import Like from './common/Like';
 import InfoEdit from './common/InfoEditButton';
 
-function CocktailCards({ drinks, onLike, onInfo, onEdit }) {
+function CocktailCards({ drinks, onLike, onInfo, onEdit, category }) {
   return (
     <div className='card-container'>
-      <h6>
-        The are {drinks.length} cocktails in the {} category
+      <h6 style={{ textTransform: 'lowercase' }}>
+        The are {drinks.length} cocktails in the {category} category
       </h6>
       <div className='album py-5 bg-light'>
         <div className='container-fluid '>

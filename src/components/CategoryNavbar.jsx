@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Cocktails from './Cocktails';
 
-const CategoryNavbar = ({ categories, onClick, endPoint }) => {
+const CategoryNavbar = ({ categories, onClick, value }) => {
   const renderCategories = categories => {
     const listCategories = categories.map(category => (
       <Nav key={category.strCategory} className='mr-auto' bg='dark'>
@@ -28,7 +28,7 @@ const CategoryNavbar = ({ categories, onClick, endPoint }) => {
           {renderCategories(categories)}
         </Navbar.Collapse>
       </Navbar>
-      {endPoint.length > 1 && <Cocktails selected={endPoint} />}
+      {value.length > 1 && <Cocktails />}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import CocktailCards from './CocktailCards';
 import config from '../config.json';
@@ -6,14 +6,15 @@ import config from '../config.json';
 // import Button from 'react-bootstrap/Button';
 // import ButtonGroup from 'react-bootstrap/ButtonGroup';
 //import getDrinksByCategory from './services/httpService';
+import CategoryContext from './context/categoryContext';
 
-function Cocktails({ selected }) {
-  //console.log(endPoint);
-
+function Cocktails() {
+  const currentCategory = useContext(CategoryContext);
   const [drinks, setDrinks] = useState([]);
 
   useEffect(() => {
-    const filterCategoryURL = config.drinkByCategoryURl + selected;
+    const filterCategoryURL =
+      config.drinkByCategoryURl + currentCategory;
 
     async function populateCocktails() {
       const { data } = await axios.get(filterCategoryURL);
@@ -21,7 +22,7 @@ function Cocktails({ selected }) {
       setDrinks(data.drinks);
     }
     populateCocktails();
-  }, [selected]);
+  }, [currentCategory]);
 
   // TODO
   const handleInfo = () => {
@@ -33,6 +34,7 @@ function Cocktails({ selected }) {
     console.log('Edit');
   };
 
+  // toggles the like button
   const handleLike = drink => {
     const cocktails = [...drinks];
     const index = cocktails.indexOf(drink);
@@ -59,6 +61,7 @@ function Cocktails({ selected }) {
       onLike={drink => handleLike(drink)}
       onInfo={handleInfo}
       onEdit={handleEdit}
+      category={currentCategory}
     />
   );
 }
