@@ -6,7 +6,7 @@ function CocktailCards({ drinks, onLike, onInfo, onEdit, category }) {
   return (
     <div className='card-container'>
       <h6 style={{ textTransform: 'lowercase' }}>
-        The are {drinks.length} cocktails in the {category} category
+        Showing {drinks.length} cocktails in the {category} category
       </h6>
       <div className='album py-5 bg-light'>
         <div className='container-fluid '>

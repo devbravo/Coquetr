@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import CocktailCards from './CocktailCards';
 import config from '../config.json';
-// import Card from 'react-bootstrap/Card';
-// import Button from 'react-bootstrap/Button';
-// import ButtonGroup from 'react-bootstrap/ButtonGroup';
-//import getDrinksByCategory from './services/httpService';
 import CategoryContext from './context/categoryContext';
+import http from './services/httpService';
 
 function Cocktails() {
   const currentCategory = useContext(CategoryContext);
@@ -17,7 +13,7 @@ function Cocktails() {
       config.drinkByCategoryURl + currentCategory;
 
     async function populateCocktails() {
-      const { data } = await axios.get(filterCategoryURL);
+      const { data } = await http.get(filterCategoryURL);
 
       setDrinks(data.drinks);
     }

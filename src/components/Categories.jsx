@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import CategoryNavbar from './CategoryNavbar';
 import config from '../config.json';
 import CategoryContext from './context/categoryContext';
+import http from './services/httpService';
 
 function Categories() {
   const initialValue =
@@ -13,7 +13,7 @@ function Categories() {
 
   useEffect(() => {
     async function populateCategories() {
-      const { data } = await axios.get(config.categoryURL);
+      const { data } = await http.get(config.categoryURL);
       // TODO sort data alphabetically
       localStorage.setItem('categories', JSON.stringify(data.drinks));
       setCategories(data.drinks);

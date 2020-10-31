@@ -2,14 +2,20 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Cocktails from './Cocktails';
+import { NavLink } from 'react-router-dom';
 
 const CategoryNavbar = ({ categories, onClick, value }) => {
   const renderCategories = categories => {
     const listCategories = categories.map(category => (
       <Nav key={category.strCategory} className='mr-auto' bg='dark'>
-        <Nav.Link onClick={() => onClick(category)}>
+        <NavLink
+          className='nav-item nav-link'
+          to={`/categories/${decodeURIComponent(
+            category.strCategory
+          )}`}
+          onClick={() => onClick(category)}>
           {category.strCategory}
-        </Nav.Link>
+        </NavLink>
       </Nav>
     ));
 
@@ -22,7 +28,7 @@ const CategoryNavbar = ({ categories, onClick, value }) => {
         className='fixed-top-2'
         variant='light'
         expand='lg'>
-        <Navbar.Brand href='/Categories'>Categories</Navbar.Brand>
+        <Navbar.Brand href='/categories'>Categories</Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           {renderCategories(categories)}

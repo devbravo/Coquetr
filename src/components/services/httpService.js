@@ -1,14 +1,23 @@
 import axios from 'axios';
-import config from '../../config.json';
-import renameApiKeys from '../utils/apiKeys';
+import { toast } from 'react-toastify';
+import logger from './logService';
 
-const filterCategoryURL =
-  config.drinkByCategoryURl + 'Ordinary_Drink';
+axios.interceptors.response.use(null, error => {
+  const expectedError =
+    error.response &&
+    error.response.status >= 400 &&
+    error.response.status < 500;
 
-async function getDrinksByCategory() {
-  const { data } = await axios.get(filterCategoryURL);
+  if (!expectedError) {
+    logger.log(error);
+    toast('An unexpected error occured', error);
+  }
+  return Promise.reject(error);
+});
 
-  renameApiKeys(data.drinks);
-}
-
-export default getDrinksByCategory;
+export default {
+  get: axios.get,
+  post: axios.post,
+  put: axios.put,
+  delete: axios.delete,
+};
