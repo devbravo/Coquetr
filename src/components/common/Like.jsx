@@ -1,15 +1,15 @@
 import React from 'react';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 function Like({ liked, onClick }) {
-  let classes = 'fa fa-heart';
-  if (!liked) classes += '-o';
   return (
-    <i
+    <div
+      area-hidden='true'
       onClick={onClick}
-      style={{ cursor: 'pointer' }}
-      className={classes}
-      aria-hidden='true'
-    />
+      style={{ cursor: 'pointer' }}>
+      {liked && <FaHeart />}
+      {!liked && <FaRegHeart />}
+    </div>
   );
 }
 

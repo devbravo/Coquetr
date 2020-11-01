@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar = () => {
   return (
@@ -11,7 +13,7 @@ const NavBar = () => {
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='mr-auto' bg='light'>
           <NavLink className='nav-item nav-link' to='/home'>
-            Home
+            <FontAwesomeIcon icon={faHome} />
           </NavLink>
           <NavLink className='nav-item nav-link' to='/categories'>
             Categories

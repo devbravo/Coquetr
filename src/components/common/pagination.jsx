@@ -7,7 +7,7 @@ const Paginate = ({ itemsCount, pageSize }) => {
 
   const pages = _.range(1, pagesCount + 1);
   console.log(pages);
-  if (pagesCount <= 1) return null;
+  if (pagesCount === 1) return null;
   else
     return (
       <Pagination className='pagination'>
