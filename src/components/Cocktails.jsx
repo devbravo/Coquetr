@@ -3,10 +3,12 @@ import CocktailCards from './CocktailCards';
 import config from '../config.json';
 import CategoryContext from './context/categoryContext';
 import http from './services/httpService';
+import Paginate from './common/pagination';
 
 function Cocktails() {
   const currentCategory = useContext(CategoryContext);
   const [drinks, setDrinks] = useState([]);
+  const [pageSize, setPageSize] = useState(20);
 
   useEffect(() => {
     const filterCategoryURL =
@@ -39,6 +41,10 @@ function Cocktails() {
     setDrinks(cocktails);
   };
 
+  const handlePageChange = page => {
+    console.log(page);
+  };
+
   // const renameApiKeys = drinksObj => {
   //   const listDrinks = drinksObj.map(drink => {
   //     return {
@@ -52,13 +58,20 @@ function Cocktails() {
   // };
 
   return (
-    <CocktailCards
-      drinks={drinks}
-      onLike={drink => handleLike(drink)}
-      onInfo={handleInfo}
-      onEdit={handleEdit}
-      category={currentCategory}
-    />
+    <div>
+      <CocktailCards
+        drinks={drinks}
+        onLike={drink => handleLike(drink)}
+        onInfo={handleInfo}
+        onEdit={handleEdit}
+        category={currentCategory}
+      />
+      <Paginate
+        itemsCount={drinks.length}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+      />
+    </div>
   );
 }
 

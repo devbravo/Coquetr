@@ -39,3 +39,9 @@ code {
   margin-top: 56;
   font-size: 14px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
