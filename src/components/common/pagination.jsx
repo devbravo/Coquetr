@@ -1,25 +1,43 @@
 import React from 'react';
 import Pagination from 'react-bootstrap/Pagination';
+//import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-const Paginate = ({ itemsCount, pageSize }) => {
-  const pagesCount = itemsCount / pageSize;
-
+// Props props props props -> maps pagination
+// Rendering component
+const Paginate = ({
+  itemsCount,
+  pageSize,
+  currentPage,
+  onPageChange,
+}) => {
+  const pagesCount = Math.ceil(itemsCount / pageSize);
   const pages = _.range(1, pagesCount + 1);
-  console.log(pages);
   if (pagesCount === 1) return null;
-  else
-    return (
-      <Pagination className='pagination'>
-        <Pagination.First />
-        <Pagination.Prev />
-        {pages.map(page => (
-          <Pagination.Item key={page}>{page}</Pagination.Item>
-        ))}
-        <Pagination.Next />
-        <Pagination.Last />
-      </Pagination>
-    );
+
+  return (
+    <Pagination className='pagination'>
+      <Pagination.First />
+      <Pagination.Prev />
+      {pages.map(page => (
+        <Pagination.Item
+          key={page}
+          active={page === currentPage}
+          onClick={() => onPageChange(page)}>
+          {page}
+        </Pagination.Item>
+      ))}
+      <Pagination.Next />
+      <Pagination.Last />
+    </Pagination>
+  );
 };
+
+// Pagination.propTypes = {
+//   itemsCount: PropTypes.number.isRequired,
+//   pageSize: PropTypes.number.isRequired,
+//   currentPage: PropTypes.number.isRequired,
+//   onPageChange: PropTypes.func.isRequired,
+// };
 
 export default Paginate;

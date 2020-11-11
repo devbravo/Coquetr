@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// Register form component
 class Register extends Component {
   state = {};
   render() {

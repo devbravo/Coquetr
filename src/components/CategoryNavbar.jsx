@@ -4,15 +4,16 @@ import Nav from 'react-bootstrap/Nav';
 import Cocktails from './Cocktails';
 import { NavLink } from 'react-router-dom';
 
-const CategoryNavbar = ({ categories, onClick, value }) => {
+// props -> nav. link
+// Renders the category navbar
+// Each category renders as a navigational link and provides the url endpoint
+const CategoryNavbar = ({ categories, onClick, selectCategory }) => {
   const renderCategories = categories => {
     const listCategories = categories.map(category => (
       <Nav key={category.strCategory} className='mr-auto' bg='dark'>
         <NavLink
           className='nav-item nav-link'
-          to={`/categories/${decodeURIComponent(
-            category.strCategory
-          )}`}
+          to={`/categories/${category.strCategory}`}
           onClick={() => onClick(category)}>
           {category.strCategory}
         </NavLink>
@@ -28,13 +29,13 @@ const CategoryNavbar = ({ categories, onClick, value }) => {
         className='fixed-top-2'
         variant='light'
         expand='lg'>
-        <Navbar.Brand href='/categories'>Categories</Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           {renderCategories(categories)}
         </Navbar.Collapse>
       </Navbar>
-      {value.length > 1 && <Cocktails />}
+      {/*If 1 category selected render Cocktails component*/}
+      {selectCategory.length > 1 && <Cocktails />}
     </>
   );
 };

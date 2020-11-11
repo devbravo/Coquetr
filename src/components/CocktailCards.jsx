@@ -1,8 +1,14 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import Like from './common/Like';
 import InfoEdit from './common/InfoEditButton';
 
-function CocktailCards({ drinks, onLike, onInfo, onEdit, category }) {
+// Props Props Props Props -> A cocktail card
+// renders the cocktails cards
+
+// TODO make more reusable??
+function CocktailCards({ drinks, onLike, onInfo, onEdit }) {
+  const { category } = useParams();
   return (
     <div className='card-container'>
       <h6 style={{ textTransform: 'lowercase' }}>

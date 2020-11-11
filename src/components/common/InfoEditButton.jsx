@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Props, Props -> Button
+// Reveives callback handler props and a name and returns the button
 const InfoEdit = ({ type, name }) => {
   return (
     <button

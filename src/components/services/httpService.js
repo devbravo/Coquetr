@@ -2,6 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import logger from './logService';
 
+// Global error handling with axios
 axios.interceptors.response.use(null, error => {
   const expectedError =
     error.response &&

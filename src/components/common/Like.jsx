@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
+// props props -> button
+// Returns a like button
 function Like({ liked, onClick }) {
   return (
     <div

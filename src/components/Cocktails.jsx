@@ -4,12 +4,18 @@ import config from '../config.json';
 import CategoryContext from './context/categoryContext';
 import http from './services/httpService';
 import Paginate from './common/pagination';
+import { paginating } from './utils/paginate'; // pagination algorithm
 
+// Cocktails component
+// Handles state and events and passes them as components to CocktailCards and Paginate component
 function Cocktails() {
+  // Receives context from Categories component
   const currentCategory = useContext(CategoryContext);
   const [drinks, setDrinks] = useState([]);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize] = useState(20);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  // Async call -> Returns state
   useEffect(() => {
     const filterCategoryURL =
       config.drinkByCategoryURl + currentCategory;
@@ -41,34 +47,27 @@ function Cocktails() {
     setDrinks(cocktails);
   };
 
+  // Handler function for page change
   const handlePageChange = page => {
-    console.log(page);
+    setCurrentPage(page);
   };
 
-  // const renameApiKeys = drinksObj => {
-  //   const listDrinks = drinksObj.map(drink => {
-  //     return {
-  //       name: drink.strDrink,
-  //       image: drink.strDrinkThumb,
-  //       id: drink.idDrink,
-  //     };
-  //   });
-
-  //   setDrinks(listDrinks);
-  // };
+  // Passes 3 states to the pagination algorithm - paginating
+  // Returning an array of beverages to pass to the CocktailCards component
+  const beverages = paginating(drinks, currentPage, pageSize);
 
   return (
     <div>
       <CocktailCards
-        drinks={drinks}
+        drinks={beverages}
         onLike={drink => handleLike(drink)}
         onInfo={handleInfo}
         onEdit={handleEdit}
-        category={currentCategory}
       />
       <Paginate
         itemsCount={drinks.length}
         pageSize={pageSize}
+        currentPage={currentPage}
         onPageChange={handlePageChange}
       />
     </div>

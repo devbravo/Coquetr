@@ -4,13 +4,17 @@ import config from '../config.json';
 import CategoryContext from './context/categoryContext';
 import http from './services/httpService';
 
+// Category component
+// Passes props and context for CategoryNavbar and Cocktails component
 function Categories() {
   const initialValue =
     JSON.parse(localStorage.getItem('categories')) || [];
 
   const [categories, setCategories] = useState(initialValue);
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectCategory, setSelectCategory] = useState([]);
 
+  // Asynchronous call -> sets the state
+  // Stores data in local storage
   useEffect(() => {
     async function populateCategories() {
       const { data } = await http.get(config.categoryURL);
@@ -21,21 +25,25 @@ function Categories() {
     populateCategories();
   }, []);
 
-  const handleClick = category => {
+  // Category -> sets the state
+  // Handles category changes and updates the state
+  const handleCategoryChange = category => {
     const clickedCategory = categories
       .filter(c => c === category)
       .map(c => c.strCategory);
     const stringResult = clickedCategory[0];
-    setSelectedCategory(stringResult);
+    setSelectCategory(stringResult);
   };
 
+  // Passes data as props to CategoryNavbar component
+  // and provides context to Cocktail component
   return (
-    <CategoryContext.Provider value={selectedCategory}>
+    <CategoryContext.Provider value={selectCategory}>
       <div>
         <CategoryNavbar
           categories={categories}
-          value={selectedCategory}
-          onClick={category => handleClick(category)}
+          selectCategory={selectCategory}
+          onClick={category => handleCategoryChange(category)}
         />
       </div>
     </CategoryContext.Provider>
